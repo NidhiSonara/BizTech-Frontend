@@ -170,7 +170,7 @@ function AddEditEmployee(props) {
                 >
                   <option value=''>Select Employee Type</option>
                   {Object.keys(EMPLOYEETYPE).map((key) => (
-                    <option value={key}>{EMPLOYEETYPE[key]}</option>
+                    <option key={key} value={key}>{EMPLOYEETYPE[key]}</option>
                   ))}
                 </Form.Select>
                 <Form.Control.Feedback type="invalid">{formik.errors.employeeType}</Form.Control.Feedback>
@@ -193,6 +193,7 @@ function AddEditEmployee(props) {
                 <Form.Label>Hobbies : </Form.Label>
                 {Object.keys(HOBBIES).map((key) => (
                   <Form.Check
+                    key={key}
                     value={key}
                     label={HOBBIES[key]}
                     name="hobbies"

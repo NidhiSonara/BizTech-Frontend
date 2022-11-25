@@ -85,7 +85,7 @@ function Home() {
                                     <td><img className='img-fluid rounded-circle' src={employee?.image} alt="profile" /></td>
                                     <td>
                                         <Link to={`/edit/${employee._id}`} className='btn btn-primary my-3'>Edit</Link>
-                                        <Button className='btn btn-danger my-3' onClick={() => handleDelete(employee)}>Delete</Button>
+                                        <Button className='btn btn-danger ms-3 my-3' onClick={() => handleDelete(employee)}>Delete</Button>
                                     </td>
                                 </tr>
                             ))}
