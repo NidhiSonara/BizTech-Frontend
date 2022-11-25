@@ -3,6 +3,7 @@ import api from "../helper/Api";
 import Table from 'react-bootstrap/Table';
 import Loader from "../container/Loader";
 import { Link } from "react-router-dom";
+import { toast } from 'react-toastify';
 function Home() {
     const [loading, setLoading] = useState(true);
     const [employeeData, setEmployeeData] = useState();
@@ -13,11 +14,13 @@ function Home() {
                 setEmployeeData(res.data.data);
                 setLoading(false);
             }
-        });
+        }).catch((err) => {
+            toast.error(err.message);
+        });;
     }, []);
 
     return (
-        <>
+        <div className='p-3'>
             {loading ?
                 <Loader />
                 :
@@ -40,16 +43,16 @@ function Home() {
                         <tbody>
                             {employeeData && employeeData.map((employee, index) => (
                                 <tr key={index}>
-                                    <td>{index}</td>
+                                    <td>{index + 1}</td>
                                     <td>{employee?.firstName}</td>
                                     <td>{employee?.lastName}</td>
                                     <td>{employee?.email}</td>
-                                    <td>{new Date(employee?.dob).getDay()} - {new Date(employee?.dob).getMonth()} - {new Date(employee?.dob).getFullYear()}</td>
+                                    <td>{new Date(employee?.dob).getDate()}-{new Date(employee?.dob).getMonth()}-{new Date(employee?.dob).getFullYear()}</td>
                                     <td>{employee?.employeeType}</td>
                                     <td>{employee?.hobbies?.join(", ")}</td>
                                     <td><img className='img-fluid rounded-circle' src={employee?.image} alt="profile" /></td>
                                     <td>
-                                        <Link to="/add" className='btn btn-primary my-3'>Edit</Link>
+                                        <Link to={`/edit/${employee._id}`} className='btn btn-primary my-3'>Edit</Link>
                                         <Link to="/add" className='btn btn-danger my-3'>Delete</Link>
                                     </td>
                                 </tr>
@@ -58,7 +61,7 @@ function Home() {
                     </Table>
                 </>
             }
-        </>
+        </div>
     );
 }
 
